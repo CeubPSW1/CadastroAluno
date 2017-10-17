@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Aluno;
+import model.Ra;
 import org.hibernate.Hibernate;
 import org.hibernate.SessionFactory;
 import org.hibernate.Session;
@@ -40,9 +41,15 @@ public class Controller extends HttpServlet {
         Session session = null;
 
         Aluno a = new Aluno();
+        Ra ra = new Ra();
+        ra.setAtivo(true);
+        ra.setNumero( Long.parseLong( request.getParameter("ra")) );
         
-        a.setRa( Long.parseLong( request.getParameter("ra")));
         a.setNome( request.getParameter("nome"));
+        a.setRa(ra);
+        a.setNota("MM");
+        a.setNota("SS");
+        a.setNota("MS");
         
         try {
             /* TODO output your page here. You may use following sample code. */
@@ -51,6 +58,7 @@ public class Controller extends HttpServlet {
             session = sf.openSession();
             
             session.beginTransaction();
+            //session.save(ra);
             session.save(a);
             session.getTransaction().commit();
             
